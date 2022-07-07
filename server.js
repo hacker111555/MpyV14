@@ -19,10 +19,17 @@ function connect(conn, PORT) {
         res.end(await qrcode.toBuffer(_qr))
     })
 
-    let server = app.listen(PORT, () => {
+    let server = app.listen((reg, res ) => {
       console.log('App listened on port', PORT)
       if (opts['keepalive']) keepAlive()
     })
+    
+
+
+    
+    
+    
+    
     let io = SocketIO(server)
     io.on('connection', socket => {
         let { unpipeEmit } = pipeEmit(conn, socket, 'conn-')
